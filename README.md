@@ -30,12 +30,13 @@ update the `las_path` and `dtm_path` variables at the top of `building_roof.R`.
 
 The main workflow is implemented in R. The script covers:
 
-ALS height normalization
-Building footprint extraction
-Roof-plane segmentation
-Roof geometry estimation
-Roof-type classification
-Spatial and tabular output generation
+
+- ALS height normalization
+- Building footprint extraction
+- Roof-plane segmentation
+- Roof geometry estimation
+- Roof-type classification
+- Spatial and tabular output generation
 
 Required R packages: `lidR`, `terra`, `sf`, `dplyr`, `purrr`, `tidyr`,
 `ggplot2`, `ggnewscale`, `maptiles`, `tidyterra`, `patchwork`.
@@ -63,11 +64,12 @@ can be adjusted for other tiles.
 Building footprints were extracted from ASPRS class-6 points and refined using 
 two height-based filters introduced during calibration::
 
+- A minimum point height (min_height = 2.5 m), applied when class-6 points are selected,
+which excludes low-elevation returns (e.g. ground-level artifacts or misclassified points)
+before any building or roof processing.
+
 - A footprint p75-height filter (footprint_p75_min = 3.0 m), which rejects low-height
 objects that were occasionally included in the class-6 mask, such as terraces, patios, and driveways.
-
-- A roof minimum height (roof_min_height = 2.5 m), which removes low façade and ground-level
-points before roof-plane detection.
 
 The figures below show the input surface model, the rasterized building
 mask, and the final extracted footprints over the tile:
